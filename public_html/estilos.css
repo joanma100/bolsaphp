@@ -1,0 +1,569 @@
+body {
+	font-family: sans-serif;
+	color: #000000;
+	margin: 0;
+	padding: 0;
+	background: #FFF;
+}
+
+body, td, th, h3 { /* browser differencs workaround  */
+	font-size: x-small;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	font-size: small;
+}
+
+form {
+	margin: 0;
+	font-size: small;
+}
+textarea {
+	width: 100%;
+	background: #F0F0F0;
+	border: 1px dotted #CCCCCC;
+	color: #000000;
+	margin-bottom: 5px;
+}
+
+
+
+#container {
+	margin: 0 auto;
+	min-width: 750px;
+	position:absolute; /* footer at bottom workaround */
+}
+
+/* footer at bottom workaround */
+
+html, body, #container {
+	height: 100%;
+	min-height: 100%;
+	width: 100%;
+	min-width: 100%;
+}
+
+
+
+/* menu superior */
+
+#menu-superior {
+	padding: 0px;
+	margin: 0px;
+	height: 30px;
+	color: #000;
+	background-color: #F0F0F0;
+	margin-left: 25%;
+}
+
+#menu-superior ul {
+	margin: 0px;
+	list-style: none;
+}
+
+#menu-superior li {
+	float: right;
+	margin: 5px 0 0 0;
+	padding: 0;
+}
+
+#menu-superior li a, #menu-superior li a:visited {
+	color: #000;
+	float: left;
+	font-size: 110%;
+	background: #F0F0F0;
+	border-left: 3px solid #FFFFFF;
+	padding: 2px 10px 2px 10px;
+}
+
+#ads  {
+	padding: 0px;
+	margin: 0px;
+	height: 90px;
+	color: #000;
+	background-color: #CCCCCC;
+	
+}
+#ads a {
+	color: blue;
+	text-decoration: none
+}
+
+#login  {
+	padding: 0px;
+	margin: 0px;
+	height: 90px;
+	color: #000;
+	background-color: #CCCCCC;
+	font-size: small;
+}
+
+#login ul {
+	margin: 5px;
+	padding: 1px;
+	float: left;
+}
+
+#login ul li {
+	text-align: right;
+	list-style: none;
+	/* display: block; */
+	
+}
+
+
+#logo a {
+	margin: 0;
+	width: 25%;
+	height: 30px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 0;
+	font-size: 1.9em;
+	color: #000000;
+}
+
+
+/* listado tickers*/
+
+
+
+
+.listado-item {
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 1px 0 1px 0;
+	text-align: right;
+	overflow: hidden;
+}
+
+
+
+.listado-item:hover {
+	background-color: #F0F0F0;
+}
+
+
+.listado-ticker, .listado-valor, .listado-volumen, .listado-cambio, .listado-cambio-baja, .listado-cambio-sube, .listado-fecha, .listado-porcentaje-acciones {
+	float: left;
+	display: block;
+}
+.listado-porcentaje-acciones {
+	width: 14%;
+}
+.listado-ticker {
+	width: 20%;
+}
+
+.listado-ticker a {
+	color: blue;
+	text-decoration: none;
+}
+
+.listado-valor {
+	width: 14%;
+}
+
+.listado-volumen {
+	width: 16%;
+	text-align: right;
+	font-size: 0.8em;
+}
+
+.listado-cambio {
+	width: 16%;
+	text-align: right;
+}
+
+.listado-cambio-baja {
+	width:16%;
+	text-align: right;
+	color: red;
+}
+
+.listado-cambio-sube {
+	width:16%;
+	text-align: right;
+	color: green;
+}
+.listado-fecha {
+	width: 16%;
+	text-align: right;
+	font-size: 0.7em;
+}
+
+
+
+
+/* cuerpo */
+#central {
+	width: 75%;
+	float: right;
+	text-align: center;
+	min-width: 600px;
+	margin-bottom: 25px;
+}
+
+#central img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#central ol {
+	text-align: left;
+	width:90%;
+}
+#central ol li:hover {
+	background-color: #F0F0F0;
+}
+#central ol li a {
+	color: blue;
+	text-decoration: none;
+}
+
+#grafica {
+	text-align: center;
+}
+#grafica img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+
+#datos-ticker {
+	width: 49%;
+	float: right;
+}
+	
+#datos-ticker ul {
+	margin: 5px;
+	padding: 1px;
+	border: 2px solid #CCCCCC;
+	background-color: #CCCCCC; 
+}
+#datos-ticker ul li {
+	text-align: left;
+	list-style: none;
+	display: block;
+	background-color: #FFFFFF;
+	
+}
+#datos-ticker ul li:hover {
+	background-color: #F0F0F0;	
+}
+
+#datos-ticker ul li img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#datos-ticker ul li b {
+	text-align: right;
+}
+
+
+#datos-ticker-cartera {
+	width: 49%;
+	float: left; 
+	
+}
+#datos-ticker-cartera ul {
+	margin: 5px;
+	padding: 1px;
+	border: 1px solid #CCCCCC;
+	background-color: #CCCCCC;
+}
+#datos-ticker-cartera ul li {
+	text-align: left;
+	list-style: none;
+	display: block;
+	background-color: #FFFFFF;
+	
+}
+
+#datos-ticker-cartera ul li a {
+	color: blue;
+	text-decoration: none;
+}
+
+#datos-ticker-historico {
+	width: 98%;
+	border: 1px solid #CCCCCC;
+	clear: both;
+	padding: 1px 0 1px 0;
+	text-align: center;
+	overflow: hidden;
+}
+
+#datos-ticker-historico ul {
+	margin: 5px;
+	padding: 1px;
+	border: 1px solid #CCCCCC;
+	background-color: #CCCCCC;
+	
+}
+
+#datos-ticker-externo {
+	width: 98%;
+	border: 1px solid #CCCCCC;
+	clear: both;
+	padding: 1px 0 1px 0;
+	text-align: center;
+	overflow: hidden;
+}
+
+#datos-ticker-externo ul {
+	margin: 5px;
+	padding: 1px;
+	border: 1px solid #CCCCCC;
+	background-color: #CCCCCC;
+	
+}
+#datos-ticker-externo ul li {
+	text-align: left;
+	list-style: none;
+	display: block;
+	background-color: #FFFFFF;
+	
+}
+#grafico-ticker {
+	margin: 5px 0 0 0;
+	border: 1px solid #CCCCCC;
+}
+
+/* menu izquierda */
+#menu-izquierda {
+	width: 25%;
+	float: left;
+	min-width: 220px;
+	margin-bottom: 25px;
+}
+	
+#menu-izquierda ul {
+	margin: 5px;
+	padding: 1px;
+	border: 1px solid #CCCCCC;
+	background-color: #CCCCCC;
+}
+#menu-izquierda ul li {
+	text-align: left;
+	list-style: none;
+	display: block;
+	background-color: #FFFFFF;
+	
+}
+#menu-izquierda ul li a {
+	color: blue;
+	text-decoration: none;
+}
+#menu-izquierda ul li:hover {
+	background-color: #F0F0F0;	
+}
+
+#menu-izquierda ul li img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+#menu-izquierda ul li img a {
+	text-decoration: none;
+}
+
+
+.doscolumnas {
+	width: 99%;
+	/* clear: both; */
+	overflow: hidden;
+	padding: 1px 0 0px 0;
+}
+
+
+.col2izq {
+	width: 39%;
+	float: left;
+	text-align: left;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	
+}
+.col2der {
+	width: 60%;
+	float: left;
+	text-align: right;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	
+}
+
+
+
+
+/* Para listado cartera */
+#listado-cartera {
+	
+}
+
+#listado-cartera ul {
+	 background-color: #FFFFFF;  
+}
+#listado-cartera ul a {
+	text-decoration: none;
+	color: blue;
+}
+
+#listado-cartera ul ul {
+	background-color: #CCCCCC; 
+}
+
+
+.sube {
+	color: green;
+}
+
+.baja {
+	color: red;
+}
+
+#visualizador {
+	/* min-width: 200px;
+	min-height: 200px; */
+}
+
+#visualizador img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 2px solid #CCCCCC;
+}
+
+
+
+
+/* listado log*/
+
+
+
+
+.listado-log-log {
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 1px 0 1px 0;
+	text-align: right;
+	overflow: hidden;
+}
+
+
+
+.listado-log-log:hover {
+	background-color: #F0F0F0;
+}
+
+
+.listado-log-usuario, .listado-log-accion, .listado-log-fecha {
+	float: left;
+	display: block;
+}
+
+.listado-log-usuario {
+	width: 25%;
+}
+
+.listado-log-usuario a {
+	color: blue;
+	text-decoration: none;
+}
+
+.listado-log-accion {
+	width: 50%;
+}
+.listado-log-accion a {
+	color: blue;
+	text-decoration: none;
+}
+
+.listado-log-fecha {
+	width: 24%;
+	text-align: right;
+	font-size: 0.7em;
+}
+
+
+
+/* listado ranking*/
+
+
+
+
+.listado-ranking-log {
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 1px 0 1px 0;
+	text-align: right;
+	overflow: hidden;
+}
+
+.listado-ranking-log a {
+	color: blue;
+	text-decoration: none;
+}
+
+.listado-ranking-log:hover {
+	background-color: #F0F0F0;
+}
+
+
+.listado-ranking-usuario, .listado-ranking-saldo, .listado-ranking-invertido, .listado-ranking-total, .listado-ranking-beneficio-hoy {
+	float: left;
+	display: block;
+}
+
+.listado-ranking-usuario {
+	width: 20%;
+}
+
+.listado-ranking-usuario a {
+	color: blue;
+	text-decoration: none;
+}
+
+.listado-ranking-saldo {
+	width: 20%;
+}
+
+.listado-ranking-invertido {
+	width: 19%;
+}
+
+
+.listado-ranking-total {
+	width: 20%;
+}
+.listado-ranking-beneficio-hoy {
+	width: 20%;
+}
+
+#pie {
+	position:fixed;
+	bottom:0px;
+	width: 100%;
+	text-align: right;
+	/*background-color: #FFFFFF; */
+	color: #CCCCCC;
+	font-size: 0.5em;
+	/*border: 1px solid #CCCCCC; */
+}
+#pie a {
+	color: #CCCCCC;
+	text-decoration: none;
+	background-color: #FFFFFF;
+}
