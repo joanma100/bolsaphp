@@ -506,22 +506,6 @@ function bloque_ads() {
 	
 	//echo "<b>Última actualización:</b> Se ha bajado el precio de las comisiones a un ".$config['comision']."%, gracias a la información de algunos usuarios, buscando una mayor jugabilidad y no alejandonos mucho de la realidad. :) <br /><br />Felices beneficios.";
 	
-	echo '<script type="text/javascript"><!--
-		google_ad_client = "pub-6311366192077645";
-		google_ad_width = 728;
-		google_ad_height = 90;
-		google_ad_format = "728x90_as";
-		google_ad_type = "text";
-		google_ad_channel ="9799508016";
-		google_color_border = "CCCCCC";
-		google_color_bg = "F0F0F0";
-		google_color_link = "000000";
-		google_color_text = "333333";
-		google_color_url = "666666";
-		//--></script>
-		<script type="text/javascript"
-		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-		</script>';
 	
 	echo "</div>";
 }
