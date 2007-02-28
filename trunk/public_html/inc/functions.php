@@ -15,35 +15,31 @@ function cabecera() {
 	global $config;
 	header("Content-type: text/html; charset=utf-8");
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' . "\n";
+	echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">'."\n";
 	echo '<head>' . "\n";
 	echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . "\n";
-	echo "<title>".__($config['titulo'])."</title>\n";
+	echo "<title>".__($config['titulo']);
+	if ($_GET["ticker"]) { echo " - ".empresa_ticker($_GET["ticker"]); }
+	echo "</title>\n";
 	echo '<meta name="generator" content="David Martín :: Suki_ :: ( http://sukiweb.net )" />' . "\n";
 	echo '<meta name="keywords" content="'.$config['tags'].'" />' . "\n";
 	echo '<style type="text/css" media="screen">@import "'.$config['css'].'";</style>' . "\n";
 	echo '<link rel="icon" href="/favicon.ico" type="image/x-icon" />' . "\n";
+	echo '<script type="text/javascript" src="inc/xmlhttp.js"></script>';
 	
-	include ("inc/xmlhttp.js");
-	/*
-	if ($_GET["login"]=="login") {
-		echo '<script><!-- ';
-		//echo 'function sf(){document.login.focus();}';
-		echo 'function sf() { alert("test"); }';
-		echo ' // --></script>';
-	}
-	*/
+	if ($_GET["ticker"]) {
+		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS 2.0\" href=\"http://bolsaphp.sukiweb.net/rss.php?ticker=".$_GET["ticker"]."\" />";
+	} else if  ($_GET["usuario"]) {
+		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS 2.0\" href=\"http://bolsaphp.sukiweb.net/rss.php?usuario=".$_GET["usuario"]."\" />";
+	} else {
+		echo "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS 2.0\" href=\"http://bolsaphp.sukiweb.net/rss.php\" />";
+	}	
 
 	if ($_GET["log"]=="1") {
-		echo "<meta http-equiv=\"refresh\" content=\"60\">";
+		echo '<script src="inc/chat.js" language="JavaScript" type="text/javascript"></script>';
 	}
 	echo '</head>' . "\n";
-	echo '<body id="home" ';
-	/*
-	if ($_GET["login"]=="login") {
-		echo 'onLoad="sf()"';
-		}
-	*/
-	echo '><div id="container">';
+	echo '<body id="home"><div id="container">';
 }
 
 function pie() {
@@ -51,21 +47,19 @@ function pie() {
 	
 	echo "</div>";
 	echo "<div id=\"pie\">Por: <a href=\"http://sukiweb.net\">David Martín :: Suki_ ::</a></div>";
-
-	echo "</body>";
+	
+	echo "</body></html>";
 }
-/*
-function _e($text) {
-	//de momento sólo devolvemos el texto.
-	//Ya veré como hago lo de las traducciones.
-	return $text;
-}
-*/
 
-function logea($descripcion) {
+
+function logea($descripcion, $tipo="", $usuario) {
 	global $db;
 	$ip=check_ip_behind_proxy();
-	$SELECT = "INSERT INTO log (log_usuario_id, log_usuario_login, log_descripcion, log_ip) VALUES ('".$_SESSION["usuario_id"]."', '".$_SESSION["usuario"]."', '".$descripcion."', '".$ip."')";
+	if ($tipo) {
+		$SELECT = "INSERT INTO log (log_usuario_id, log_usuario_login, log_descripcion, log_ip, log_tipo) VALUES ('".$_SESSION["usuario_id"]."', '".$usuario."', '".$descripcion."', '".$ip."', '".$tipo."')";
+	} else {
+		$SELECT = "INSERT INTO log (log_usuario_id, log_usuario_login, log_descripcion, log_ip) VALUES ('".$_SESSION["usuario_id"]."', '".$usuario."', '".$descripcion."', '".$ip."')";
+	}
 	$result = $db->get_results($SELECT);
 }
 
@@ -104,8 +98,6 @@ function clean_text($string) {
 }
 
 function save_text_to_html($string) {
-	//$string = strip_tags(trim($string));
-	//$string= htmlspecialchars(trim($string));
 	$string= text_to_html($string);
 	$string = preg_replace("/\r\n|\r|\n/", "\n<br />\n", $string);
 	return $string;
@@ -122,10 +114,10 @@ function timestamp_to_fecha($timestamp)
 	return date('Y-m-d H:i', $timestamp);
 	elseif($timestamp > mktime(0,0,0))
 	//since midnight so it's today
-	return __("Hoy")." ".date('H:i', $timestamp);
+	return "Hoy ".date('H:i', $timestamp);
 	elseif($timestamp > mktime(0,0,0) - 86400)
 	//since midnight 1 day ago so it's yesterday
-	return __("Ayer")." ".date('H:i', $timestamp);
+	return "Ayer ".date('H:i', $timestamp);
 	elseif($timestamp > mktime(0,0,0) - 86400*7)
 	//since midnight 7 days ago so it's this week
 	return date('l H:i', $timestamp);
@@ -135,6 +127,91 @@ function timestamp_to_fecha($timestamp)
 	else
 	//ages ago!
 	return date('F Y', $timestamp);
+}
+
+function gravatar($usuario, $tam)
+{
+	global $db;
+	$default = "http://bolsaphp.sukiweb.net/images/avatar.gif";
+	$res=$db->get_var("SELECT usuario_email, usuario_login FROM usuarios WHERE usuario_login='$usuario'");
+	$grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=".md5($res)."&amp;default=".urlencode($default)."&amp;size=".$tam;
+	return $grav_url;
+}
+
+function beneficios($usuario, $dias) {
+	global $db;
+	$SELECT="SELECT SUM(ranking_beneficio_hoy) as beneficio from ranking WHERE ranking_usuario='".$usuario."' AND ranking_fecha>=CURDATE()- INTERVAL ".$dias." DAY";
+	$res = $db->get_var($SELECT);
+	return $res;
+}
+
+function envia_mail($usuario, $subject, $body) {
+	global $db;
+	$headers="From: alertas@bolsaphp.sukiweb.net\r\n";
+	$headers.="MIME-Version: 1.0\r\n";
+	$headers.="Content-Type: text/plain; charset=UTF-8;\r\n";
+
+	$email=$db->get_var("SELECT usuario_email FROM usuarios WHERE usuario_login='$usuario'");
+	if (mail($email, $subject, $body, $headers)) {
+		// el mail se ha enviado correctamente
+		
+	}
+}
+
+function comprueba_alertas($ticker, $valor) {
+	global $db;
+
+	// Comprobamos las Mayor que
+	$SELECT="SELECT * from alertas WHERE ticker='".$ticker."' AND condicion='>=' AND valor<='".$valor."' AND estado='ACTIVA'";
+	$res = $db->get_results($SELECT);
+	$row=0;
+	while (isset($res[$row]->id)) {
+		$alertas_email=$db->get_var("SELECT usuario_alertas_email from usuarios where usuario_login='".$res[$row]->usuario."'");
+		if ($alertas_email==1) {
+			envia_mail($res[$row]->usuario, "[BolsaPHP] Alerta de ".$ticker, "Se ha disparado una alerta programada:\r\n\r\n La alerta estaba programada para avisar al igualar o superar ".$res[$row]->valor." €.\r\n Las acciones de ".$ticker." están actualmente a ".$valor." €.  \r\n \r\n http://bolsaphp.sukiweb.net/index.php?ticker=".$ticker." \r\n\r\n"); 
+			$alerta=$db->get_var("UPDATE alertas SET estado='AVISADO' where id='".$res[$row]->id."'");
+			echo "Enviando mail a ".$res[$row]->usuario;
+		}
+	$row++;
+	}
+
+	// Comprobamos las Menor que
+	$SELECT="SELECT * from alertas WHERE ticker='".$ticker."' AND condicion='<=' AND valor>='".$valor."' AND estado='ACTIVA'";
+	$res = $db->get_results($SELECT);
+	$row=0;
+	while (isset($res[$row]->id)) {
+		$alertas_email=$db->get_var("SELECT usuario_alertas_email from usuarios where usuario_login='".$res[$row]->usuario."'");
+		if ($alertas_email==1) {
+			envia_mail($res[$row]->usuario, "[BolsaPHP] Alerta de ".$ticker, "Se ha disparado una alerta programada:\r\n\r\n La alerta estaba programada para avisar al igualar o bajar de  ".$res[$row]->valor." €.\r\n Las acciones de ".$ticker." están actualmente a ".$valor." €.  \r\n \r\n http://bolsaphp.sukiweb.net/index.php?ticker=".$ticker." \r\n\r\n"); 
+			$alerta=$db->get_var("UPDATE alertas SET estado='AVISADO' where id='".$res[$row]->id."'");
+			echo "Enviando mail a ".$res[$row]->usuario;
+		}
+	$row++;
+	}
+
+
+}
+
+function grupo_exists($grupo_nombre) {
+	global $db;
+	$res=$db->get_var("SELECT count(*) FROM grupos WHERE grupo_nombre='$grupo_nombre'");
+	if ($res>0) return true;
+	return false;
+}
+
+function resetea_usuario($usuario) {
+	global $db;
+	$res=$db->get_var("DELETE FROM `ranking` WHERE `ranking_usuario`='".$usuario."'");
+	$res=$db->get_var("DELETE FROM `ordenes` WHERE `usuario`='".$usuario."'");
+	$res=$db->get_var("DELETE FROM `carteras` WHERE `usuario`='".$usuario."'");
+	$res=$db->get_var("UPDATE `usuarios` SET `usuario_saldo` = '60000', `usuario_karma`='0' WHERE `usuario_login` ='".$usuario."' LIMIT 1 ;");
+	logea("Cuenta reseteada", "", $usuario);
+}
+
+function aleatorio($precio, $diferencia) {
+	$aleatorio=rand(0, 100);
+	$precio=($precio+1)+$diferencia;
+	if ($aleatorio<=$precio) { return true; } else { return false; }
 }
 
 ?>

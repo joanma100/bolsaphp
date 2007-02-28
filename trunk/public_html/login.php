@@ -20,7 +20,7 @@ session_start();
 
 
 if ($_GET["login"]=="logout") {
-	logea("logout");
+	logea("logout", "LOGOUT", $_SESSION["usuario"]);
 	$SELECT = "SELECT * FROM usuarios "
 	."WHERE usuario_login='".$_SESSION['usuario']."' "
 	."AND usuario_id='".$_SESSION['usuario_id']."'";
@@ -76,7 +76,7 @@ if ($_GET["login"]=="logout") {
 		
 		setcookie("bolsaPHP", $strCookie, $time);
 
-		logea("login");
+		logea("login", "LOGIN", $_SESSION["usuario"]);
 		
 	} else {
 	$mensaje_de_error=__("Algún error en su usuario o su password.");
@@ -114,10 +114,7 @@ if(!empty($_COOKIE['bolsaPHP'])  && !$_SESSION["email"]) {
 		
 		setcookie("bolsaPHP", $strCookie, $time);
 		
-	
-		
-		//echo "llegamos aqui";	
-		//echo "<br />".$_SESSION["usuario"]." = ".$result[0]->usuario_login;
+		logea("login", "LOGIN", $_SESSION["usuario"]);
 		
 		} 
 
@@ -127,10 +124,8 @@ if(!empty($_COOKIE['bolsaPHP'])  && !$_SESSION["email"]) {
 
 	// si no se ha logeado, metemos el user anónimo en la sesión.
 	if (!$_SESSION["usuario"]) {
-			
 			$_SESSION["usuario"] = "anonimo";
 			$_SESSION["nombre"] = "anonimo";
-			//$_SESSION["usuario_id"] = "0";
 	}
 
 

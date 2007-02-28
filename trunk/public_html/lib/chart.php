@@ -54,13 +54,13 @@ class chart {
   var $output_x_size = false, $output_y_size;
   var $plots = array();
   var $image;
-  var $left_margin = 30, $right_margin = 10, 
+  var $left_margin = 40, $right_margin = 10, 
     $top_margin = 20, $bottom_margin = 23;
   var $margin_color = "white";
   var $border_color = "black", $border_width = 1;
   var $title_text = array(), $title_where = array(), $title_color = array();
   var $legends = array(), $legend_background_color = "white", 
-    $legend_margin = 8, $legend_border_color = "black";
+    $legend_margin = 4, $legend_border_color = "black";
   var $legend_placement = "l"; // left or right
   var $axes = "xy", $axes_color = "black";
   var $grid_color = array(230, 230, 230), $grid_under_plot = 1;

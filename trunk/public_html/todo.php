@@ -69,7 +69,6 @@ echo '<div id="menu-izquierda">';
 		</ul>';
 	}
 
-	//	echo '<div id="visualizador">Selecciona una imagen para ver su gráfica</div>';
 
 	caja_estadisticas();
 echo "</div>";  // end div menu-izquierda

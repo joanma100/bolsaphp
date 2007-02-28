@@ -2,13 +2,20 @@
 require("login.php");
 include_once("config.php");
 
-if (!$_GET["dias"]) { $_GET["dias"]=1; }
-// pillamos los valores 
-$SELECT = "SELECT * from quotes WHERE ticker='".$_GET["ticker"]."' ";
-$SELECT .= " AND fecha>CURDATE()- INTERVAL ".$_GET[dias]." DAY ";
-if ($_GET[dias]>=30) { $SELECT .= " GROUP BY fecha "; }
-$SELECT .= " ORDER BY 'timestamp' DESC ";
-//$SELECT .= " LIMIT 0 , 30";
+if (!$_GET["dias"]) { 
+	 $SELECT = "SELECT * from quotes WHERE ticker='".$_GET["ticker"]."' ";
+	 $SELECT .= " ORDER BY 'timestamp' DESC ";
+	 $SELECT .= " LIMIT 0 , 60";
+} else if ($_GET["dias"]>=30) {
+	// Si pedimos 30 días o más
+	$SELECT="SELECT * FROM quotes, (SELECT MAX(timestamp) as timestampmax FROM quotes WHERE ticker='".$_GET["ticker"]."' AND fecha>=CURDATE()- INTERVAL ".$_GET["dias"]." DAY GROUP BY fecha ORDER BY id ASC) maxtime  WHERE maxtime.timestampmax=quotes.timestamp AND ticker='".$_GET["ticker"]."' ";
+	 
+} else {
+	// pillamos los valores 
+	$SELECT = "SELECT * from quotes WHERE ticker='".$_GET["ticker"]."' ";
+	$SELECT .= " AND fecha>CURDATE()- INTERVAL ".$_GET["dias"]." DAY ";
+	$SELECT .= " ORDER BY 'timestamp' DESC ";
+}
 
 $result = $db->get_results($SELECT);
 array_multisort($result, SORT_ASC, $result);

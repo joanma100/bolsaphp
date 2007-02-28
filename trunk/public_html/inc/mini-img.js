@@ -11,7 +11,7 @@ var tipFollowMouse= true;
 var tipWidth= 160;
 var offX= 20;	// how far from mouse to show tip
 var offY= 15;
-var startStr = '<img src="chart.php?dias=1&tam=mini&ticker=';
+var startStr = '<img src="chart.php?tam=mini&amp;ticker=';
 var endStr = '" border="0">';
 var tooltip, tipcss;
 function initTip() {
