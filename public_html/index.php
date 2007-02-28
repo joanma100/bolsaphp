@@ -26,10 +26,12 @@ if ($_GET["login"]=="login") {
 if ($_GET[ticker]) {
 	grafica_ticker($_GET[ticker]);
 } else if ($_GET[log]) {
-	if ($_GET[log]!=1) { listado_log($_SESSION[usuario]); } else { listado_log(); }
-} else if ($_GET[usuario]) {
+	if ($_GET[log]!=1) { listado_log($_SESSION[usuario]); } else { fisgon(); }
+} else if ($_GET["usuario"] AND $_GET["usuario"]!="anonimo") {
 	//echo "usuario";
 	datos_usuario($_GET["usuario"]);
+} else if ($_GET["ordenes"]) {
+	ordenes_en_cola();
 } else {
 	listado_quotes();
 }
@@ -43,42 +45,16 @@ echo '<div id="menu-izquierda">';
 	if ($_SESSION["usuario_id"]!=0) {
 		listado_cartera();
 	} else {
-		echo '<ul>Tu cartera
-		<li>Sólo puedes ver tu cartera si eres usuario registrado</li>
-		<li>Tu cartera muestra tus beneficios o pérdidas según tus compras y ventas</li>
-		<li>Te recordamos que esto es un juego...</li>
-		</ul>';
+		caja_usuario_no_registrado();
+		caja_novedades();
+		caja_karma(); 
 	}
 
-	//	echo '<div id="visualizador">Selecciona una imagen para ver su gráfica</div>';
 
-	caja_estadisticas();
+//	caja_estadisticas();
 echo "<br /><br /><br />";
 echo "</div>";  // end div menu-izquierda
 
-
-
-
-
-
-
-/*
-if ($_SESSION[usuario]) {
-	echo "<div>";
-	echo "<ul>";
-	$SELECT= "SELECT * from carteras WHERE usuario='".$_SESSION[usuario]."' ";
-	$result = $db->get_results($SELECT);
-	$row=0;
-	while (isset($result[$row]->id)) {
-	echo "<li>".$result[$row]->ticker." - ".$result[$row]->valor." - ".$result[$row]->acciones."</li>";
-	$row++;
-	}
-	echo "</ul>";
-	echo "</div>";
-}
-*/
-
-//echo '<script type="text/javascript" src="http://embed.technorati.com/embed/i8enwwkfm6.js"></script>';
 pie();
 ?>
 

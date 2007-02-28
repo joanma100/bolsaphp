@@ -1,5 +1,6 @@
 body {
 	font-family: sans-serif;
+	font-size: 11px;
 	color: #000000;
 	margin: 0;
 	padding: 0;
@@ -7,16 +8,49 @@ body {
 }
 
 body, td, th, h3 { /* browser differencs workaround  */
-	font-size: x-small;
+	font-size: 11px;
 	voice-family: "\"}\"";
 	voice-family: inherit;
-	font-size: small;
+	
 }
 
 form {
 	margin: 0;
 	font-size: small;
 }
+form input[type=text] {
+	width: 99%;
+	font-size: 11px;
+	background-color: #fff;
+	text-align: right;
+	border: 1px #fff solid;
+}
+form input[type=password] {
+	width: 100%;
+	font-size: 11px;
+	background-color: #fff;
+	text-align: right;
+	border: 1px #fff solid;
+}
+form input[type=text]:hover, input[type=password]:hover {
+	background-color: #F0F0F0;
+	border: 1px #600 solid;
+}
+form input[type=submit] {
+	font-size: 11px;
+	border: 1px #600 solid;
+	background-color: #F0F0F0;
+}
+select {
+	font-size: 11px;
+	border: 1px #600 solid;
+	background-color: #F0F0F0;
+}
+form textarea:focus, form input[type=text]:focus {
+	border: 1px #600 solid;
+	background-color: #fff;
+}
+
 textarea {
 	width: 100%;
 	background: #F0F0F0;
@@ -24,8 +58,20 @@ textarea {
 	color: #000000;
 	margin-bottom: 5px;
 }
-
-
+fieldset {
+	margin: 2px;
+	padding: 1px;
+}
+legend {
+	font-size: 11px;
+	margin-left: 5px;
+	padding: 2px;
+	border: 1px #000 solid;
+	background-color: #CCCCCC;
+}
+legend a {
+	text-decoration: none;
+}
 
 #container {
 	margin: 0 auto;
@@ -88,6 +134,10 @@ html, body, #container {
 	text-decoration: none
 }
 
+.login {
+	padding: 5px;
+	width: 200px;
+}
 #login  {
 	padding: 0px;
 	margin: 0px;
@@ -111,16 +161,17 @@ html, body, #container {
 }
 
 
-#logo a {
-	margin: 0;
+#logo {
+	margin: auto;
 	width: 25%;
-	height: 30px;
+	
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	z-index: 0;
 	font-size: 1.9em;
 	color: #000000;
+	margin-top: 15px;
 }
 
 
@@ -295,7 +346,7 @@ html, body, #container {
 
 #datos-ticker-historico {
 	width: 98%;
-	border: 1px solid #CCCCCC;
+	border: none;
 	clear: both;
 	padding: 1px 0 1px 0;
 	text-align: center;
@@ -312,7 +363,7 @@ html, body, #container {
 
 #datos-ticker-externo {
 	width: 98%;
-	border: 1px solid #CCCCCC;
+	border: none;
 	clear: both;
 	padding: 1px 0 1px 0;
 	text-align: center;
@@ -344,6 +395,7 @@ html, body, #container {
 	float: left;
 	min-width: 220px;
 	margin-bottom: 25px;
+	margin-top: 100px;
 }
 	
 #menu-izquierda ul {
@@ -391,7 +443,7 @@ html, body, #container {
 	text-align: left;
 	display: block;
 	border-top: 1px solid #CCCCCC;
-	
+	font-size: 10px;	
 }
 .col2der {
 	width: 60%;
@@ -400,7 +452,52 @@ html, body, #container {
 	display: block;
 	border-top: 1px solid #CCCCCC;
 	border-left: 1px solid #CCCCCC;
-	
+	font-size: 10px;
+}
+
+
+.cuatrocolumnas {
+	width: 99%;
+	/* clear: both; */
+	overflow: hidden;
+	padding: 1px 0 0px 0;
+}
+
+
+.col4izq {
+	width: 25%;
+	float: left;
+	text-align: left;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	font-size: 10px;	
+}
+.col4cen1 {
+	width: 24%;
+	float: left;
+	text-align: right;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	font-size: 10px;	
+}
+.col4cen2 {
+	width: 24%;
+	float: left;
+	text-align: right;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	font-size: 10px;	
+}
+.col4der {
+	width: 25%;
+	float: left;
+	text-align: right;
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	font-size: 10px;
 }
 
 
@@ -427,9 +524,17 @@ html, body, #container {
 .sube {
 	color: green;
 }
+.sube legend {
+	border: 1px solid green;
+	
+
+}
 
 .baja {
 	color: red;
+}
+.baja legend {
+	border: 1px solid red;
 }
 
 #visualizador {
@@ -474,7 +579,8 @@ html, body, #container {
 }
 
 .listado-log-usuario {
-	width: 25%;
+	width: 15%;
+	text-align: right;
 }
 
 .listado-log-usuario a {
@@ -483,7 +589,9 @@ html, body, #container {
 }
 
 .listado-log-accion {
-	width: 50%;
+	width: 65%;
+	text-align: right;
+	padding-left: 10px;
 }
 .listado-log-accion a {
 	color: blue;
@@ -491,7 +599,7 @@ html, body, #container {
 }
 
 .listado-log-fecha {
-	width: 24%;
+	width: 14%;
 	text-align: right;
 	font-size: 0.7em;
 }
@@ -522,13 +630,16 @@ html, body, #container {
 }
 
 
-.listado-ranking-usuario, .listado-ranking-saldo, .listado-ranking-invertido, .listado-ranking-total, .listado-ranking-beneficio-hoy {
+.listado-ranking-top, .listado-ranking-usuario, .listado-ranking-saldo, .listado-ranking-invertido, .listado-ranking-ben30d, .listado-ranking-beneficio-hoy {
 	float: left;
 	display: block;
 }
 
+.listado-ranking-top {
+	width: 4%;
+}
 .listado-ranking-usuario {
-	width: 20%;
+	width: 15%;
 }
 
 .listado-ranking-usuario a {
@@ -545,11 +656,30 @@ html, body, #container {
 }
 
 
-.listado-ranking-total {
+.listado-ranking-ben30d {
 	width: 20%;
 }
 .listado-ranking-beneficio-hoy {
 	width: 20%;
+}
+
+.chat {
+	width: 95%;
+	margin: auto;
+	display: block;
+}
+.chat INPUT[type=text] {
+	width:80%;
+	border: 1px solid black;
+	background-color: #FCFCFC;
+	display: block;
+	float: left;
+	text-align: left;
+}
+.chat INPUT[type=submit] {
+	width:15%;
+	display:block;
+	float: right;
 }
 
 #pie {
@@ -566,4 +696,18 @@ html, body, #container {
 	color: #CCCCCC;
 	text-decoration: none;
 	background-color: #FFFFFF;
+}
+
+.izquierda {
+	text-align: left;
+}
+
+.centrado {
+	text-align: center;
+}
+
+.filtro {
+	background-color: #FCFCFC;
+	border: 1px solid #CCCCCC;
+	text-decoration: none;
 }

@@ -5,10 +5,9 @@ include_once("config.php");
 if (!$_GET["dias"]) { $_GET["dias"]=30; }
 // pillamos los valores 
 $SELECT = "SELECT * from ranking WHERE ranking_usuario='".$_GET["usuario"]."' ";
-$SELECT .= " AND ranking_fecha>CURDATE()- INTERVAL ".$_GET[dias]." DAY ";
-//$SELECT .= " GROUP BY ranking_fecha "; 
+$SELECT .= " AND ranking_fecha>CURDATE()- INTERVAL ".$_GET[dias]." DAY "; 
 $SELECT .= " ORDER BY 'ranking_fecha' DESC ";
-//$SELECT .= " LIMIT 0 , 30";
+
 
 $result = $db->get_results($SELECT);
 

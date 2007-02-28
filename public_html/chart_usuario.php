@@ -8,12 +8,13 @@ if ($_GET[tam]=="peq") { $width=300; $height=100; }
 if ($_GET[tam]=="mini") { $width=200; $height=100; }
 
 // Creamos el tamaño de la imagen
-$chart = new chart($width, $height);
-	// Para cuando quiera poner cache de imágenes
-	//$chart = new chart($width, $height, "ticker+tamaño+hora+minuto");
+//$chart = new chart($width, $height);
 
-//$chart->set_background_color("transparent", "ForestGreen");
-//$chart->add_legend($_GET[ticker], "green");
+$hora=date("i");
+$nombrecache="usuario-".$_GET["usuario"]."-".$_GET["dias"]."-".$hora;
+$chart = new chart($width, $height, $nombrecache.".png");
+
+
 
 
 if ($_GET["beneficio"]) {
@@ -42,13 +43,6 @@ if ($_GET[dias]==1) {
 	$chart->set_x_ticks ($fecha, $format = "text");
 }
 
-// Muestra con fuentes internas
-//$chart->set_font("", "internal");
-
-
-//$chart->plot($volumen, false, "black");
-//$chart->add_legend("mm3", "red");
-//$chart->set_labels("http://sukiweb.net", "Valor");
 $chart->set_title($_GET["usuario"]." -  http://sukiweb.net");
 $chart->stroke();
 ?>
